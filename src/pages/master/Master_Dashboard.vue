@@ -1,6 +1,6 @@
 <template>
   <div class = 'w-screen h-screen flex'>
-    <div class = 'w-[400px] h-full bg-gray-200 text-white'>
+    <div class = 'w-[400px] h-full bg-gray-200 text-white' v-show="showSide">
       <div class= 'h-[50px] bg-gray-900 flex justify-start items-center'>
         <div class="px-[80px]">
           <h3 class="font-bold text-xl">Admin Dashboard</h3>
@@ -93,11 +93,15 @@
             <!-- User login end-->           
            </div>
 
+        </div>
+
+        <div class= 'h-[calc(100vh-50px)] bg-white'>
+          <div class="border border-gray-300 rounded-md p-[20px] h-full">
+            <router-view></router-view>
+          </div>
         </div>  
       </div>
-      <div class= 'h-[calc(100vh-50px)] bg-white'>
-        Menu
-      </div>
+      
   </div>
   </div>
   

@@ -7,18 +7,22 @@ const routes = [
     {
         name: 'Master_Dashboard',
         path: '/',
-        component: dashboard
-    },
-    {
-        name: 'Home',
-        path: '/home',
-        component: HomePage
-    },
-    {
-        name: 'profile',
-        path: '/profile',
-        component: ProfilePage
+        component: dashboard,
+        children:[
+            {
+                name: 'Home',
+                path: '/home',
+                component: HomePage
+            },
+            {
+                name: 'profile',
+                path: '/profile',
+                component: ProfilePage
+            }
+
+        ]
     }
+  
 ]
 
 const router = createRouter({
