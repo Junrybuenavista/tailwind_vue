@@ -1,5 +1,6 @@
 <template>
-  <div>Profile</div>
+  <div>Profiles</div>
+  
 </template>
 
 <script>
