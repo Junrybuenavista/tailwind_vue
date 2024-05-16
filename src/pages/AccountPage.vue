@@ -1,33 +1,48 @@
 <template>
-    <h1>My account</h1>
+    <h1>{{responseText}}</h1>
+   
 </template>
 
 <script>
 import axios from "axios";
+import renewToken from '../axios/renewToken'
+import { onUnmounted } from 'vue'
 
-export default {    
-    mounted () {
-
-        const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2Nzk4MDYsImV4cCI6MTcxNTY3OTg2NiwiYXVkIjoiNjY0MzMyM2E5NjZjNDg0ZmY0MzViNDRlIiwiaXNzIjoiamh1bnRhLmNvbSJ9.grDQoDTb9m9XyO3eR6VxEdqJWvT7QQrm0NZ4g94KqWg';
-        const BASEURL = '/';
-        const ENDPOINT = 'http://localhost:7777/';
-
-        axios.create({
-            baseURL: BASEURL,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+TOKEN
+export default {  
+    
+    data(){
+            return{
+            responseText:'',
+               
             }
-        })
-        .get(ENDPOINT)
+            
+        },
+        mounted () {     
+        const self = this  
+        axios.get('/')
         .then(res => {
-            console.log(res.data);
+            console.log(res.data+localStorage.getItem('name'));
+            this.responseText = res.data+localStorage.getItem('name')
+           
+                    
         }) 
         .catch((error) => {
-            console.log(error.response.data.error.message)                                   
+                onUnmounted()
+                console.log(error.response.data.error.message)
+                async function renew(){ 
+                       
+                    await renewToken.renewToken()
+                    console.log('redirecting')
+                    
+                    self.$router.push('/')  
+                    //self.$forceUpdate();                    
+                }        
+                renew()                                                 
         })
-  }
+    }
+    
 }
+
 
 </script>
 

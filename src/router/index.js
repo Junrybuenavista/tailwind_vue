@@ -5,6 +5,8 @@ import ProfilePage from "@/pages/ProfilePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import AccountPage from "@/pages/AccountPage.vue";
+import TestPage from "@/pages/TestPage.vue";
+
 
 const routes = [
     {
@@ -39,7 +41,13 @@ const routes = [
             }
 
         ]
+    },
+    {
+        name: 'Test Page',
+        path: '/testpage',
+        component: TestPage,
     }
+
   
 ]
 

@@ -100,7 +100,7 @@ export default{
                  .catch((error) => {
                         console.log(error.response.data.error.message)
                         this.responseText = error.response.data.error.message                  
-                 })
+          })
         },
         clearField(){
           console.log(this.form.name)
