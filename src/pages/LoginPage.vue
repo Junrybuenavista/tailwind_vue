@@ -38,6 +38,7 @@
         data(){
             return{
             responseText:'Sign in below to access your account',
+            isVerified:false,
                 form: {
                     email: '',
                     password: '',
@@ -50,11 +51,15 @@
         
             axios.post('/auth/login/', this.form)
             .then((res) => {
-                        console.log(res) 
-                        localStorage.setItem('accessToken',res.data.accessToken)
-                        localStorage.setItem('refreshToken',res.data.refreshToken) 
-                        localStorage.setItem('name',res.data.name)
-                        this.$router.push('/')
+                        console.log(res.data.refreshToken)
+                        if(res.data.verified){ 
+                            localStorage.setItem('accessToken',res.data.accessToken)
+                            localStorage.setItem('refreshToken',res.data.refreshToken) 
+                            localStorage.setItem('name',res.data.name)
+                            this.$router.push('/')
+                        }else{
+                            this.responseText = 'You must verified your email first!'
+                        }
                                   
                     })
                     .catch((error) => {

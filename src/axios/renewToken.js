@@ -1,6 +1,7 @@
 
 
 import axios from "axios";
+//import { resolve,reject } from "core-js/fn/promise";
 
 export default {
 
@@ -25,7 +26,9 @@ export default {
             
         }) 
         .catch((error) => {
-            console.log(error)                         
+            throw error()                  
         })
+
+        
     }
 }       

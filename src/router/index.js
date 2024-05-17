@@ -6,6 +6,7 @@ import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import AccountPage from "@/pages/AccountPage.vue";
 import TestPage from "@/pages/TestPage.vue";
+import LogoutPage from "@/pages/LogoutPage.vue";
 
 
 const routes = [
@@ -38,6 +39,11 @@ const routes = [
                 name: 'Account',
                 path: '/',
                 component: AccountPage
+            },
+            {
+                name: 'Logout',
+                path: '/logout',
+                component: LogoutPage
             }
 
         ]

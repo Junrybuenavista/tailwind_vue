@@ -1,18 +1,18 @@
 <template>
-    <h1>{{responseText}}</h1>
+    <h1>My company</h1>
+    <p ref="response" id="response_id">This is the initial text</p>
    
 </template>
 
 <script>
 import axios from "axios";
 import renewToken from '../axios/renewToken'
-import { onUnmounted } from 'vue'
 
 export default {  
     
     data(){
             return{
-            responseText:'',
+        
                
             }
             
@@ -22,28 +22,39 @@ export default {
         axios.get('/')
         .then(res => {
             console.log(res.data+localStorage.getItem('name'));
-            this.responseText = res.data+localStorage.getItem('name')
-           
+            //nameuser = res.data+localStorage.getItem('name')
+            this.changeVal(localStorage.getItem('name'))
                     
         }) 
         .catch((error) => {
-                onUnmounted()
                 console.log(error.response.data.error.message)
-                async function renew(){ 
-                       
+
+                async function renew(){                      
                     await renewToken.renewToken()
                     console.log('redirecting')
+                    self.changeVal(localStorage.getItem('name')) 
+                    //self.$forceUpdate();                                  
+                }
+                async function check(){ 
+                    renew().then(()=>{
+                        
+                    }).catch(() => {
+                        self.$router.push('/login')              
+                    })
                     
-                    self.$router.push('/')  
-                    //self.$forceUpdate();                    
-                }        
-                renew()                                                 
+                }   
+                check()           
+                  
+                                                          
         })
+    },
+    methods: {
+      changeVal(value) { 
+        this.$refs.response.innerHTML = value;
+      }
     }
     
 }
-
-
 </script>
 
 <style>
