@@ -1,32 +1,24 @@
 <template>
-    <h1>My account</h1>
-   
-</template>
-
-<script>
-import axios from "axios";
-//import '../axios/global'
-//import renewToken from '../axios/renewToken'
-
-export default {  
-    
-    mounted () {         
-        axios.get('/')
-        .then(res => {
-            console.log(res.data);
-                   
-        }) 
-        .catch((error) => {
-            console.log(error.response.data.error.message)
-            //renewToken.renewToken()  
-                                          
-        })
+    <div :class="{ 'fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50': isOpen }">
+      <div class="bg-white p-8 rounded-lg">
+        
+        <slot></slot>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    props: {
+      isOpen: {
+        type: Boolean,
+        default: false
+      }
+    },
+    methods: {
+      closeModal() {
+        this.$emit('close');
+      }
     }
-}
-
-
-</script>
-
-<style>
-
-</style>
+  };
+  </script>

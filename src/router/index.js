@@ -7,6 +7,7 @@ import RegisterPage from "@/pages/RegisterPage.vue";
 import AccountPage from "@/pages/AccountPage.vue";
 import TestPage from "@/pages/TestPage.vue";
 import LogoutPage from "@/pages/LogoutPage.vue";
+import Add_Del_Product from "@/pages/Add_Del_Product.vue";
 
 
 const routes = [
@@ -26,28 +27,34 @@ const routes = [
                 component: ProfilePage
             },
             {
-                name: 'login',
-                path: '/login',
-                component: LoginPage
-            },
-            {
-                name: 'register',
-                path: '/register',
-                component: RegisterPage
-            },
-            {
                 name: 'Account',
                 path: '/',
                 component: AccountPage
-            },
+            }
+            ,
             {
-                name: 'Logout',
-                path: '/logout',
-                component: LogoutPage
+                name: 'Product',
+                path: '/product',
+                component: Add_Del_Product
             }
 
         ]
     },
+    {
+        name: 'login',
+        path: '/login',
+        component: LoginPage
+    },
+    {
+        name: 'register',
+        path: '/register',
+        component: RegisterPage
+    },    
+    {
+        name: 'Logout',
+        path: '/logout',
+        component: LogoutPage
+    },  
     {
         name: 'Test Page',
         path: '/testpage',
