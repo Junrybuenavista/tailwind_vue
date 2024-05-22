@@ -8,7 +8,7 @@ import AccountPage from "@/pages/AccountPage.vue";
 import TestPage from "@/pages/TestPage.vue";
 import LogoutPage from "@/pages/LogoutPage.vue";
 import Add_Del_Product from "@/pages/Add_Del_Product.vue";
-
+import Category_Table from "@/pages/tables/Category_Table.vue";
 
 const routes = [
     {
@@ -36,7 +36,13 @@ const routes = [
                 name: 'Product',
                 path: '/product',
                 component: Add_Del_Product
+            },
+            {
+                name: 'Category table',
+                path: '/product/category',
+                component: Category_Table
             }
+            
 
         ]
     },

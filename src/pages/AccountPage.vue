@@ -28,24 +28,11 @@ export default {
         }) 
         .catch((error) => {
                 console.log(error.response.data.error.message)
-
-                async function renew(){                      
-                    await renewToken.renewToken()
+                if(error.response.data.error.message==='jwt expired'){                                 
+                    renewToken.renewToken(self.$router)
                     console.log('redirecting')
-                    self.changeVal(localStorage.getItem('name')) 
-                    //self.$forceUpdate();                                  
-                }
-                async function check(){ 
-                    renew().then(()=>{
-                        
-                    }).catch(() => {
-                        self.$router.push('/login')              
-                    })
-                    
-                }   
-                check()           
-                  
-                                                          
+                    self.changeVal(localStorage.getItem('name'))
+                }else console.log(error)                                                                                                                                
         })
     },
     methods: {
