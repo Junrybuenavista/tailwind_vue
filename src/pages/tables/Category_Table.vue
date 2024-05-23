@@ -44,7 +44,7 @@ export default {
               })
               .catch((error)=>{
                 console.log(error.response.data.error.message+' in catch')
-                if(error.response.data.error.message==='jwt expired'){
+                if(error.response.data.error.message==='jwt expired'||error.response.data.error.message==='jwt malformed'){
                       console.log('renewing token')                                 
                       renewToken.renewToken(self.$router).then(()=>{
                       console.log('redirecting') 

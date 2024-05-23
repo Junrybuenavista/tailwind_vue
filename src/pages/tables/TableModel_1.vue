@@ -105,7 +105,7 @@ export default {
                   keyword: '',
                   currentSort:'name',
                   currentSortDir:'asc',
-                  pageSize:4,
+                  pageSize:7,
                   currentPage:1,
                   
                                               
