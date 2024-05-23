@@ -9,6 +9,7 @@ import TestPage from "@/pages/TestPage.vue";
 import LogoutPage from "@/pages/LogoutPage.vue";
 import Add_Del_Product from "@/pages/Add_Del_Product.vue";
 import Category_Table from "@/pages/tables/Category_Table.vue";
+import TableModel_1 from "@/pages/tables/TableModel_1.vue";
 
 const routes = [
     {
@@ -65,6 +66,12 @@ const routes = [
         name: 'Test Page',
         path: '/testpage',
         component: TestPage,
+    }
+    ,  
+    {
+        name: 'Table',
+        path: '/table1',
+        component: TableModel_1,
     }
 
   
