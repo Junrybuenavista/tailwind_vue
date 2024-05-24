@@ -45,11 +45,12 @@ export default {
               .catch((error)=>{
                 console.log(error.response.data.error.message+' in catch')
                 if(error.response.data.error.message==='jwt expired'||error.response.data.error.message==='jwt malformed'){
+                      this.$refs.ModalRef.close();
                       console.log('renewing token')                                 
-                      renewToken.renewToken(self.$router).then(()=>{
-                      console.log('redirecting') 
-                      this.query()
-                        })          
+                        renewToken.renewToken(self.$router).then(()=>{
+                        console.log('redirecting') 
+                        this.query()
+                      })          
                   }else console.log(error)     
               })
           }
