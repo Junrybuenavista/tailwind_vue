@@ -183,8 +183,16 @@ export default {
           this.$refs.ModalRef.clear();
           this.$refs.ModalRef.show();
         }      
-      }
-  
+      },mounted() {
+        window.addEventListener("storage", (event) => {
+          if (event.storageArea != localStorage) return;
+          if (event.key === "refreshToken") {
+            this.$router.push('/login')
+            //location.reload();
+          }
+        });
+      },
+        
 }
 
 </script>

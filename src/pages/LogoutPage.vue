@@ -32,7 +32,7 @@ export default {
         })
     },
     methods: {
-      changeVal(value) { 
+        changeVal(value) { 
         this.$refs.response.innerHTML = value;
       }
     }

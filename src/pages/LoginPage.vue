@@ -56,6 +56,7 @@
                             localStorage.setItem('accessToken',res.data.accessToken)
                             localStorage.setItem('refreshToken',res.data.refreshToken) 
                             localStorage.setItem('name',res.data.name)
+                            localStorage.setItem('userId',res.data.id)
                             this.$router.push('/')
                         }else{
                             this.responseText = 'You must verified your email first!'

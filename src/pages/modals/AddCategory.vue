@@ -11,7 +11,7 @@
       </div>
     <form @submit.prevent="addCategory" class="w-96 max-w-sm mx-auto">
       <h4 class="text-2xl font-bold dark:text-white">Add Category</h4>
-      <div id='response' v-show="false">
+      <div id='response' v-show="resIsShow">
          <p  class="text-[13px] text-red mt-2">{{responseText}}</p>
       </div>
 
@@ -23,7 +23,7 @@
 
       <div class="!mt-5">
             <button  class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center">
-                Create an account
+                Save
             </button>
       </div>
     </form>
@@ -37,14 +37,17 @@
   <script>
   import axios from "axios";
   import $ from 'jquery'
+
       export default {
             data(){
                 return{
+                  resIsShow:true,
                   showModal: false,
                   responseText:'',
                   form: {
                       name: '',
-                      description: ''
+                      description: '',
+                      userId: ''
                   },
                 }
         
@@ -53,9 +56,11 @@
             methods:{
                 show(){ 
                   this.showModal = !this.showModal
+                  this.resIsShow = !this.resIsShow
                 },
                 addCategory(){
                     this.loading = true
+                    this.form.userId = localStorage.getItem('userId')
                     console.log(this.form)
                     axios.post('/product/category', this.form)
                     .then((res) => {

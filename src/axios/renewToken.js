@@ -10,7 +10,7 @@ export default {
         const refreshToken ={ 
             
                 refreshToken: localStorage.getItem('refreshToken')
-            }   
+        }   
         
         console.log('Renewing token')
         console.log(refreshToken)
@@ -22,7 +22,7 @@ export default {
 
             localStorage.setItem('accessToken',res.data.accessToken)
             localStorage.setItem('refreshToken',res.data.refreshToken) 
-            console.log('Token refreshed')
+            console.log('Token refreshed') 
             
         }) 
         .catch((error) => {

@@ -26,7 +26,7 @@
                     <label for="hs-table-pagination-checkbox-all" class="sr-only">Checkbox</label>
                   </div>
                 </th>
-                <th @click="sort('name')" v-for="(header, index) in headers" :key="index" scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">{{ header }}</th>
+                <th @click="sort('name')" v-for="(header, index) in this.properties.headers" :key="index" scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">{{ header }}</th>
                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
               </tr>
             </thead>
@@ -42,7 +42,7 @@
                 <th v-for="(item, index) in item" :key="index" scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">{{ item }}</th>
 
                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                  <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
+                  <button @click="deleteItem"  :value=JSON.stringify(item) type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
                 </td>
               </tr>
 
@@ -69,85 +69,147 @@
 </div>
 
 <div class="form">                                                                                                                                                        
-      <LoadingModal ref="ModalRef" />                                                                      
+      <LoadingModal ref="LoadingModalRef" />                                                                      
   </div>
+
+  <ConfirmationModal ref="ConfirmationModalRef" /> 
+
 
 </template>
 
 <script>
 
 import LoadingModal from '../modals/LoadingModal.vue';
-
+import ConfirmationModal from '../modals/ConfirmationModal.vue';
+import axios from "axios";
+import renewToken from '../../axios/renewToken'
 
 export default {
   
         props: {
-          items: {
-            type: Array,
-            default: () => []
+          properties: {
+            type: Object,
+            default() {
+                return { headers: [],
+                         getData: '',
+                         indexSearch: 1,
+                         deleteItem: ''
+                }
+            }
           },
-          headers: {
-            type: Array,
-            default: () => []
-          },
-          indexSearch: {
-            type: Number,
-            default: 1
-          }
         },
         components: {
-          LoadingModal
+          LoadingModal,
+          ConfirmationModal
         },
         data(){
                 return{
                   //headers: ["Id", "FirstName", "LastName"],
-                  Headershtml: '',
                   keyword: '',
                   currentSort:'name',
                   currentSortDir:'asc',
                   pageSize:7,
                   currentPage:1,
-                  
-                                              
+                  items: [],                
                 }
                   
         },
         mounted () { 
-            this.$refs.ModalRef.close()
+            this.$refs.LoadingModalRef.close()
         },
         methods:{
-            sort:function(s) {
-              if(s === this.currentSort) {
-                this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
-              }
-              this.currentSort = s;
-            },
-            nextPage:function() {
-                if((this.currentPage*this.pageSize) < this.items.length) this.currentPage++;
-            },
-            prevPage:function() {
-                if(this.currentPage > 1) this.currentPage--;
-            },   
+              async getData(){
+
+                const userIds = {        
+                  "userId": localStorage.getItem('userId')
+                }   
+                console.log(userIds)
+                  this.$refs.LoadingModalRef.show();
+                  await axios.post(this.properties.getData, userIds)
+                  .then(res => {
+                      console.log(res.data);
+                      this.items = res.data;
+                      this.$refs.LoadingModalRef.close();                          
+                  })
+                  .catch((error)=>{             
+                    this.handleError(error)     
+                  })
+              },
+              async delete(id){
+                  this.$refs.LoadingModalRef.show();
+                  await axios.post(this.properties.deleteItem+id)
+                  .then(res => {
+                      console.log(res.data);
+                      this.items = res.data;
+                      this.getData()                          
+                  })
+                  .catch((error)=>{             
+                    this.handleError(error)     
+                  })
+              },
+              handleError(error){
+                this.items= []
+                console.log(error.response.data.error.message+' in catch')
+                  if(error.response.data.error.message==='jwt expired'){
+                        this.$refs.LoadingModalRef.close();
+                        console.log('renewing token')
+
+                        renewToken.renewToken(this.$router).then(()=>{
+                            console.log('redirecting')
+                            this.getData(this.properties.getData) 
+                            console.log('redirecting3333')
+                        }).catch((error)=>{
+                            console.log(error)                         
+                        })          
+                    }else if(error.response.data.error.message==='jwt malformed'){
+                        this.$router.push('/login')
+                    }else console.log(error)   
+              },
+              sort:function(s) {
+                  if(s === this.currentSort) {
+                    this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+                  }
+                  this.currentSort = s;
+              },
+              nextPage:function() {
+                  if((this.currentPage*this.pageSize) < this.items.length) this.currentPage++;
+              },
+              prevPage:function() {
+                  if(this.currentPage > 1) this.currentPage--;
+              },
+              deleteItem: function(e) {
+                  const buttonValue = JSON.parse(e.target.value)
+                  console.log(buttonValue._id+'ggg')
+                  
+                  this.$refs.ConfirmationModalRef.show()
+                  .then((result) => {
+                        if (result) {
+                          this.delete(buttonValue._id)
+                        }
+                    })
+              },
         },
         computed:{     
             sortedItems(){
-            return this.items.slice()
-            .filter((Item) => {
-                return Item[Object.keys(Item)[this.indexSearch]].toLowerCase().includes(this.keyword.toLowerCase());
-            })
-            .filter((row, index) => {
-                let start = (this.currentPage-1)*this.pageSize;
-                let end = this.currentPage*this.pageSize;
-                if(index >= start && index < end) return true;
-            })  
-            .sort((a,b) => {
-              let modifier = 1;
-              if(this.currentSortDir === 'desc') modifier = -1;
-              if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-              if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-              return 0;
-            })
-        }
+              try{
+                return this.items.slice()
+                .filter((Item) => {
+                    return Item[Object.keys(Item)[this.properties.indexSearch]].toLowerCase().includes(this.keyword.toLowerCase());
+                })
+                .filter((row, index) => {
+                    let start = (this.currentPage-1)*this.pageSize;
+                    let end = this.currentPage*this.pageSize;
+                    if(index >= start && index < end) return true;
+                })  
+                .sort((a,b) => {
+                  let modifier = 1;
+                  if(this.currentSortDir === 'desc') modifier = -1;
+                  if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+                  if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                  return 0;
+                })
+              }catch(error){return console.log(error+' - sortedItems')}  
+            }
       }     
 }
 </script>
