@@ -10,42 +10,39 @@
         </button>
       </div>
     <form @submit.prevent="addCategory" class="w-96 max-w-sm mx-auto">
-      <h4 class="text-2xl font-bold dark:text-white">Add Student</h4>
+      <h4 class="mb-4 text-2xl font-bold dark:text-white">Add Student</h4>
       <div id='response' v-show="resIsShow">
          <p  class="text-[13px] text-red mt-2">{{responseText}}</p>
       </div>
 
-      <CourseGrade  :selected="form.coursegradeId" :endpoint = "this.dropdownEndPoint" ref="CourseGradeRef" />
-
-      <label class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fist Name</label>
-      <input v-model="form.first_name" type="text" id="category" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="">
-
-      <label class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-      <input v-model="form.last_name" type="text" id="category" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="">
-
-      <label class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Middle Name</label>
-      <input v-model="form.middle_name" type="text" id="category" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="">
-
-      <label class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
-      <input v-model="form.age" type="text" id="category" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="">
-
-      <label class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-      <form class="max-w-sm mx-auto">
-        <select v-model="form.gender" id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Male</option>
-          <option value="CA">Famale</option>
+      <div class="max-w-sm mx-auto">
+        <select required  id="courseGrade" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Gender">
+          <option selected value="" disabled>Choose course/grade...</option>
+          <option v-for="item in this.courseGradeItems" :key="item._id" :value="item._id">{{item.name}}</option>
         </select>
-      </form>
+      </div>
 
+      <input v-model="form.first_name" type="text" id="category" aria-describedby="helper-text-explanation" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fist Name">
 
-      <label class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-      <input v-model="form.address" type="text" id="category" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="">
+      <input v-model="form.last_name" type="text" id="category" aria-describedby="helper-text-explanation"  class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Last Name">
 
-      <label for="message" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
-      <textarea v-model="form.description" id="category" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
+      <input v-model="form.middle_name" type="text" id="category" aria-describedby="helper-text-explanation" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Middle Name">
+
+      <input v-model="form.age" type="text" id="category" aria-describedby="helper-text-explanation" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Age">
+
+      
+      <div class="max-w-sm mx-auto">
+        <select required  id="gender" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Gender">
+          <option selected value="" disabled>Choose gender...</option>
+          <option value="Male">Male</option>
+          <option value="Famale">Famale</option>
+        </select>
+      </div>
+
+      <textarea v-model="form.address" id="category" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Address"></textarea>
 
       <div class="!mt-5">
-            <button  class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center">
+            <button  @click="addStudent" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center">
                 Save
             </button>
             <button  @click="show" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center">
@@ -62,13 +59,10 @@
   
   <script>
   import axios from "axios";
-  import CourseGrade from '../../component/dropdownMenu.vue';
   import $ from 'jquery'
 
       export default {
-        components:{
-          CourseGrade
-        },
+
         data(){
                 return {
                   resIsShow:true,
@@ -85,28 +79,39 @@
                       coursegradeId: ''
                       
                   },
-                  dropdownEndPoint: 'course_and_grade/list'
+                  courseGradeItems: [],
                 }
         
             },
             mounted(){
-              this.$refs.CourseGradeRef.getData();
+              this.getCourseGrade()
             },
             methods:{
                 show(){ 
                   this.showModal = !this.showModal
                   this.resIsShow = !this.resIsShow
                 },
-                addCategory(){
+                async getCourseGrade(){
+                      const userCategoryId = {        
+                        "userId": localStorage.getItem('userId')
+                      }  
+                      await axios.post('course_and_grade/list',userCategoryId)
+                      .then(res => {
+                          this.courseGradeItems = res.data;                        
+                      })
+                      .catch((error)=>{             
+                        this.handleError(error)     
+                      })
+                  },
+                async addStudent(){
                     this.loading = true
                     this.form.userId = localStorage.getItem('userId')
+                    this.form.gender = $('#gender').find(":selected").val()
+                    this.form.coursegradeId = $('#courseGrade').find(":selected").val()
                     console.log(this.form)
 
-                    const userIds = {        
-                  "userId": localStorage.getItem('userId')
-                }  
-
-                    axios.post('/student', this.form,userIds)
+                
+                    axios.post('/student', this.form)
                     .then((res) => {
                             console.log(res.data.message)
                             this.form = {

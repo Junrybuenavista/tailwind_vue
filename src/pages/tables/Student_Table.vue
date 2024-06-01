@@ -1,5 +1,5 @@
 <template>
-      <div class="py-3 px-4  h-20 grid grid-cols-5 gap-4 content-center">
+      <div class="py-3 px-4  h-20 grid grid-cols-6 gap-4 content-center">
          <div class="relative max-w-xs">
           <button  @click="openAddModal" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 ">
@@ -17,7 +17,15 @@
 
             Refresh
           </button>
-        </div>       
+        </div>
+        <div class="relative max-w-xs">
+          <select required  id="courseGrade" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Gender">
+            <option selected value="" disabled>List by</option>
+            <option value="">All</option>
+            <option v-for="item in this.courseGradeItems" :key="item._id" :value="item._id">{{item.name}}</option>
+          </select>
+        </div>
+
       </div>  
     <child :properties="this.properties" ref="ChildRef"/>
     <AddStudentModal ref="AddStudentModalRef" />
@@ -26,6 +34,8 @@
   <script>
   import child from '../tables/TableModel_1'
   import AddStudentModal from '../modals/AddStudent.vue';
+  import axios from "axios";
+  import $ from 'jquery'
 
     export default {
           components:{
@@ -35,19 +45,39 @@
           data() {
             return {
               properties:{
-                headers: ["Id","Name", "Last Name", "Middle Name", "Age", "Address"],
+                headers: ["Id","Name", "Last Name", "Middle Name", "Gender","Age", "Address"],
                 indexSearch: 1,
                 getData: '/student/list',
                 deleteItem: '/student/delete/'
-              },    
+              },
+              courseGradeItems: [],    
             }
           },
           mounted(){
+             const self = this 
              this.$refs.ChildRef.getData();
+             this.getCourseGrade()
+
+             $('#courseGrade').change(function() {
+                const val = $("#courseGrade option:selected").val();
+                  self.$refs.ChildRef.getData(val);
+                console.log(val)
+            });
           },
           methods:{
+            async getCourseGrade(){
+                const userCategoryId = {        
+                  "userId": localStorage.getItem('userId'),
+                }  
+                await axios.post('course_and_grade/list',userCategoryId)
+                  .then(res => {
+                  this.courseGradeItems = res.data;                        
+                  })
+                  .catch((error)=>{             
+                   this.handleError(error)     
+                })
+            },
             openAddModal() {
-              console.log('hh')
                 this.$refs.AddStudentModalRef.clear();
                 this.$refs.AddStudentModalRef.show();
               },

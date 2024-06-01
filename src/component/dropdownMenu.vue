@@ -2,8 +2,7 @@
   
     <!-- Dropdown menu -->  
 <form class="max-w-sm mx-auto">
-  <select v-model="this.selected" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    <option selected>Choose course/grade</option>
+  <select v-model="this.selected" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     <option v-for="item in this.items" :key="item._id" value="US">{{item.name}}</option>
   </select>
 </form>
@@ -16,13 +15,14 @@
 
     export default {
         props:{
-            endpoint:String      
+            endpoint:String,
+            defaultSelection:String      
         },
         data(){
             return{
                 showDropdown:true,
                 items: [],
-                selected: 'ffffffffffffffffffffffffff'
+                selected: ''
             }
         },
         methods:{

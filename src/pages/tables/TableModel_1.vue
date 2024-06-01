@@ -17,12 +17,7 @@
                       <input v-model="keyword" type="text" id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." required>
                     </div>
                 </form>
-
-                  
-      
-
-         
-          
+    
         </div>
         <div class="overflow-hidden">
           <table class="min-w-full divide-y divide-gray-200">
@@ -128,16 +123,15 @@ export default {
             this.$refs.LoadingModalRef.close()
         },
         methods:{
-              async getData(){
+              async getData(filter1){
 
                 const userIds = {        
-                  "userId": localStorage.getItem('userId')
+                  "userId": localStorage.getItem('userId'),
+                  "coursegradeId":filter1
                 }   
-                console.log(userIds)
                   this.$refs.LoadingModalRef.show();
                   await axios.post(this.properties.getData, userIds)
                   .then(res => {
-                      console.log(res.data);
                       this.items = res.data;
                       this.$refs.LoadingModalRef.close();                          
                   })
@@ -149,7 +143,6 @@ export default {
                   this.$refs.LoadingModalRef.show();
                   await axios.post(this.properties.deleteItem+id)
                   .then(res => {
-                      console.log(res.data);
                       this.items = res.data;
                       this.getData()                          
                   })
