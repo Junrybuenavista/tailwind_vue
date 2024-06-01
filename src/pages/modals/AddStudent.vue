@@ -15,12 +15,7 @@
          <p  class="text-[13px] text-red mt-2">{{responseText}}</p>
       </div>
 
-      <div class="max-w-sm mx-auto">
-        <select required  id="courseGrade" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Gender">
-          <option selected value="" disabled>Choose course/grade...</option>
-          <option v-for="item in this.courseGradeItems" :key="item._id" :value="item._id">{{item.name}}</option>
-        </select>
-      </div>
+      <CourseGrade :endpoint = "this.dropdownendpoint" defaultSelection = "Choose course/grade" ref="CourseGradeRef" />
 
       <input v-model="form.first_name" type="text" id="category" aria-describedby="helper-text-explanation" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fist Name">
 
@@ -60,9 +55,13 @@
   <script>
   import axios from "axios";
   import $ from 'jquery'
+  import CourseGrade from '../../component/dropdownMenu.vue';
 
       export default {
 
+        components:{
+          CourseGrade
+        },
         data(){
                 return {
                   resIsShow:true,
@@ -80,37 +79,28 @@
                       
                   },
                   courseGradeItems: [],
+                  dropdownendpoint: 'course_and_grade/list'
                 }
         
             },
             mounted(){
-              this.getCourseGrade()
+               this.$refs.CourseGradeRef.getData()
             },
             methods:{
                 show(){ 
                   this.showModal = !this.showModal
                   this.resIsShow = !this.resIsShow
                 },
-                async getCourseGrade(){
-                      const userCategoryId = {        
-                        "userId": localStorage.getItem('userId')
-                      }  
-                      await axios.post('course_and_grade/list',userCategoryId)
-                      .then(res => {
-                          this.courseGradeItems = res.data;                        
-                      })
-                      .catch((error)=>{             
-                        this.handleError(error)     
-                      })
-                  },
+                test(){  
+                  console.log('gender'+$('#gender').find(":selected").val()+'end1')
+                  console.log('course'+this.$refs.CourseGradeRef.getId())
+                },
                 async addStudent(){
                     this.loading = true
                     this.form.userId = localStorage.getItem('userId')
                     this.form.gender = $('#gender').find(":selected").val()
-                    this.form.coursegradeId = $('#courseGrade').find(":selected").val()
-                    console.log(this.form)
-
-                
+                    this.form.coursegradeId = this.$refs.CourseGradeRef.getId()
+              
                     axios.post('/student', this.form)
                     .then((res) => {
                             console.log(res.data.message)

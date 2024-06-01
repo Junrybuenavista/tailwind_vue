@@ -26,6 +26,8 @@
           </select>
         </div>
 
+        
+
       </div>  
     <child :properties="this.properties" ref="ChildRef"/>
     <AddStudentModal ref="AddStudentModalRef" />
@@ -34,8 +36,9 @@
   <script>
   import child from '../tables/TableModel_1'
   import AddStudentModal from '../modals/AddStudent.vue';
-  import axios from "axios";
   import $ from 'jquery'
+  import axios from "axios";
+  import renewToken from '../../axios/renewToken'
 
     export default {
           components:{
@@ -46,9 +49,10 @@
             return {
               properties:{
                 headers: ["Id","Name", "Last Name", "Middle Name", "Gender","Age", "Address"],
-                indexSearch: 1,
+                indexSearch: 2,
                 getData: '/student/list',
-                deleteItem: '/student/delete/'
+                deleteItem: '/student/delete/',
+                courseGradeVal:''
               },
               courseGradeItems: [],    
             }
@@ -56,33 +60,51 @@
           mounted(){
              const self = this 
              this.$refs.ChildRef.getData();
-             this.getCourseGrade()
-
+             this.getCoureIdData()
              $('#courseGrade').change(function() {
                 const val = $("#courseGrade option:selected").val();
-                  self.$refs.ChildRef.getData(val);
+                  self.courseGradeVal = val
+                  self.$refs.ChildRef.getData(self.courseGradeVal);
                 console.log(val)
-            });
+             });
           },
           methods:{
-            async getCourseGrade(){
-                const userCategoryId = {        
-                  "userId": localStorage.getItem('userId'),
-                }  
-                await axios.post('course_and_grade/list',userCategoryId)
+             async getCoureIdData(){
+                  const userIds = {        
+                    "userId": localStorage.getItem('userId')
+                  }  
+                  await axios.post('course_and_grade/list', userIds)
                   .then(res => {
-                  this.courseGradeItems = res.data;                        
+                      console.log(res.data);
+                      this.courseGradeItems = res.data;                        
                   })
                   .catch((error)=>{             
-                   this.handleError(error)     
-                })
-            },
+                    this.handleError(error)    
+                  })
+              },
+              handleError(error){
+                this.items= []
+                console.log(error.response.data.error.message+' in catch')
+                  if(error.response.data.error.message==='jwt expired'){
+                        console.log('renewing token')
+
+                        renewToken.renewToken(this.$router).then(()=>{
+                            console.log('redirecting')
+                            this.getCoureIdData() 
+                            console.log('redirecting3333')
+                        }).catch((error)=>{
+                            console.log(error)                         
+                        })          
+                    }else if(error.response.data.error.message==='jwt malformed'){
+                        this.$router.push('/login')
+                    }else console.log(error)   
+              },
             openAddModal() {
                 this.$refs.AddStudentModalRef.clear();
                 this.$refs.AddStudentModalRef.show();
               },
-              refrest(){
-                this.$refs.ChildRef.getData();
+              refresh(){
+                this.$refs.ChildRef.getData(this.courseGradeVal);
               }  
           }     
     }
