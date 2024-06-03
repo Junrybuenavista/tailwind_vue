@@ -1,6 +1,6 @@
 <template>
 
-<div class="py-3 px-4  h-20 grid grid-cols-4 gap-4 content-center">
+      <div class="py-3 px-4  h-20 grid grid-cols-4 gap-4 content-center">
          <div class="relative max-w-xs">
           <button  @click="openAddModal" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 ">
@@ -10,7 +10,11 @@
           </button>
         </div>      
       </div> 
- 
+
+
+    
+          
+
     <child :properties="this.properties" ref="ChildRef"/>
     <AddCourseGradeModal ref="AddCourseGradeModalRef" />
   </template>

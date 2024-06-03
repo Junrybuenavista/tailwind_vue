@@ -7,6 +7,7 @@
     
     <div class="px-6 mt-12">
       <div class="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
+        
         <div class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
           <div class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-6 h-6 text-white">
@@ -17,7 +18,7 @@
           </div>
           <div class="p-4 text-right">
             <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total Students</p>
-            <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">9</h4>
+            <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">7</h4>
           </div>
           <div class="border-t border-blue-gray-50 p-4">
             <p class="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">
@@ -64,8 +65,8 @@
             </svg>
           </div>
           <div class="p-4 text-right">
-            <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Sales</p>
-            <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">$103,430</h4>
+            <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Class activities</p>
+            <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">25</h4>
           </div>
           <div class="border-t border-blue-gray-50 p-4">
             <p class="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">

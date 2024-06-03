@@ -14,6 +14,8 @@ import Student_Table from "@/pages/tables/Student_Table.vue";
 import TableModel_1 from "@/pages/tables/TableModel_1.vue";
 import CourseGrade_Table from "@/pages/tables/CourseGrade_Table.vue";
 import CheckAttendance from "@/pages/CheckAttendance.vue";
+import Calendar from "@/calendar/CalendarView.vue";
+import Components_sample from "@/pages/components_sample.vue";
 
 
 const routes = [
@@ -58,6 +60,11 @@ const routes = [
                 path: '/check_attendance',
                 component: CheckAttendance
             },
+            {
+                name: 'Calendar',
+                path: '/calendar',
+                component: Calendar
+            },
         ]
     },
     {
@@ -90,6 +97,13 @@ const routes = [
         path: '/table1',
         component: TableModel_1,
     }
+    ,   
+    {
+        name: 'Component',
+        path: '/component',
+        component: Components_sample,
+    }
+
 
   
 ]
