@@ -1,6 +1,6 @@
 <template>
   <div class = 'w-screen h-screen flex'>
-    <div class ='w-[300px] h-full bg-gray-200 text-white' id="sidebardiv">
+    <div class ='rounded-xl w-[300px] h-full bg-gray-200 text-white' id="sidebardiv">
       <div class= 'h-[50px] bg-gray-900 flex justify-start items-center'>
         <div class="px-[80px]">
           <h3 class="font-bold text-xl">Dashboard</h3>
@@ -15,44 +15,41 @@
                   </svg>
                   Profile
                 </router-link>
-                <router-link @click="productDrop" to="" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
-                  <svg aria-hidden="true" class="mr-2 w-[25px] h-[25px] fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M4.5 2A2.5 2.5 0 0 0 2 4.5v3.879a2.5 2.5 0 0 0 .732 1.767l7.5 7.5a2.5 2.5 0 0 0 3.536 0l3.878-3.878a2.5 2.5 0 0 0 0-3.536l-7.5-7.5A2.5 2.5 0 0 0 8.38 2H4.5ZM5 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
-                  </svg>
-                  Assignment/Notes
-                </router-link>
-                <div id='div1' v-show="false" class="pl-4" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                        <div class="py-1 text-left" role="none">
-                         
-                         <router-link to="/product" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
-                            Add/edit product
-                         </router-link>
-                         <router-link to="/" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
-                            Product List
-                         </router-link>
-                                      
-                      </div>
-                </div>      
-                <router-link @click="studentDrop" to="" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">                              
-                  <svg aria-hidden="true" class="mr-2 w-[25px] h-[25px] fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M2.5 3A1.5 1.5 0 0 0 1 4.5v4A1.5 1.5 0 0 0 2.5 10h6A1.5 1.5 0 0 0 10 8.5v-4A1.5 1.5 0 0 0 8.5 3h-6Zm11 2A1.5 1.5 0 0 0 12 6.5v7a1.5 1.5 0 0 0 1.5 1.5h4a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 17.5 5h-4Zm-10 7A1.5 1.5 0 0 0 2 13.5v2A1.5 1.5 0 0 0 3.5 17h6a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 9.5 12h-6Z" clip-rule="evenodd" />
-                  </svg>
-                  Students
-                </router-link>
-                      <div id='student' v-show="false" class="pl-4" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                        <router-link  to="/coursegrade/list" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
-                            Course/Grade
-                         </router-link>
-                         <router-link to="/student/list" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
-                            Student List
-                         </router-link>
-                      </div>      
-                <router-link  @click="attendanceDrop" to="" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
-                  <svg aria-hidden="true" class="mr-2 w-[25px] h-[25px] fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" d="M.99 5.24A2.25 2.25 0 0 1 3.25 3h13.5A2.25 2.25 0 0 1 19 5.25l.01 9.5A2.25 2.25 0 0 1 16.76 17H3.26A2.267 2.267 0 0 1 1 14.74l-.01-9.5Zm8.26 9.52v-.625a.75.75 0 0 0-.75-.75H3.25a.75.75 0 0 0-.75.75v.615c0 .414.336.75.75.75h5.373a.75.75 0 0 0 .627-.74Zm1.5 0a.75.75 0 0 0 .627.74h5.373a.75.75 0 0 0 .75-.75v-.615a.75.75 0 0 0-.75-.75H11.5a.75.75 0 0 0-.75.75v.625Zm6.75-3.63v-.625a.75.75 0 0 0-.75-.75H11.5a.75.75 0 0 0-.75.75v.625c0 .414.336.75.75.75h5.25a.75.75 0 0 0 .75-.75Zm-8.25 0v-.625a.75.75 0 0 0-.75-.75H3.25a.75.75 0 0 0-.75.75v.625c0 .414.336.75.75.75H8.5a.75.75 0 0 0 .75-.75ZM17.5 7.5v-.625a.75.75 0 0 0-.75-.75H11.5a.75.75 0 0 0-.75.75V7.5c0 .414.336.75.75.75h5.25a.75.75 0 0 0 .75-.75Zm-8.25 0v-.625a.75.75 0 0 0-.75-.75H3.25a.75.75 0 0 0-.75.75V7.5c0 .414.336.75.75.75H8.5a.75.75 0 0 0 .75-.75Z" clipRule="evenodd" />
-                  </svg>
-                  Attendance
-                </router-link>
+
+                <router-link to="/" >
+                  <button @click="analyticsDrop" v-bind:class="this.buttonAnalytics"  type="button" href="/">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-5 h-5 text-inherit">
+                        <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"></path>
+                        <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"></path>
+                      </svg>
+                      <p class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">Analytics</p>
+                  </button>
+                 </router-link> 
+
+                            
+                  <button @click="studentDrop" v-bind:class="this.buttonStudent"  type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-5 h-5 text-inherit">
+                        <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"></path>
+                        <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"></path>
+                      </svg>
+                      <p class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">Students</p>
+                  </button>
+                  <div id='student' v-show="false" class="pl-4" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                      <router-link  to="/coursegrade/list" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
+                          Course/Grade
+                       </router-link>
+                      <router-link to="/student/list" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
+                         Student List
+                      </router-link>
+                  </div>
+                   
+                  <button @click="attendanceDrop" v-bind:class="this.buttonAttendance" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-5 h-5 text-inherit">
+                      <path fill-rule="evenodd" d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 18.375V5.625zM21 9.375A.375.375 0 0020.625 9h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 00.375-.375v-1.5zm0 3.75a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 00.375-.375v-1.5zm0 3.75a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 00.375-.375v-1.5zM10.875 18.75a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5zM3.375 15h7.5a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375zm0-3.75h7.5a.375.375 0 00.375-.375v-1.5A.375.375 0 0010.875 9h-7.5A.375.375 0 003 9.375v1.5c0 .207.168.375.375.375z" clip-rule="evenodd"></path>
+                    </svg>
+                    <p class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">Attendance</p>
+                  </button>    
+
                       <div id='attendance' v-show="false" class="pl-4" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                         <router-link  to="/calendar" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
                             Overview
@@ -119,8 +116,8 @@
 
         </div>
 
-        <div class= 'h-[calc(100vh-50px)] bg-white' >
-          <nav class="h-full overflow-y-auto" aria-label="Directory">
+        <div class= 'px-5 h-[calc(100vh-50px)] bg-white' >
+          <nav class="px-3 h-full overflow-y-auto" aria-label="Directory">
             <div class="h-full">
               <router-view></router-view>
             </div>
@@ -143,6 +140,11 @@ export default {
 
       data() {
         return {
+          buttonIsNotSeleted: 'middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize',
+          buttonIsSelected: 'middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize',
+          buttonStudent: '',
+          buttonAnalytics: '',
+          buttonAttendance: '',
           isModalOpen: false,
           userName: localStorage.getItem('name'),
           showDropDown: false,
@@ -164,13 +166,36 @@ export default {
           $("#div1").fadeToggle();
         },
         studentDrop() {
+          this.subButtonReset()
+          this.buttonReset()
+          this.buttonStudent = this.buttonIsSelected
           $("#student").fadeToggle();
+          
+        },
+        analyticsDrop(){
+          this.subButtonReset()
+          this.buttonReset()
+          this.buttonAnalytics = this.buttonIsSelected
         },
         attendanceDrop() {
+          this.subButtonReset()
+          this.buttonReset()
+          this.buttonAttendance = this.buttonIsSelected
           $("#attendance").fadeToggle();
-        } 
+        },
+        buttonReset(){
+          this.buttonStudent = this.buttonIsNotSeleted
+          this.buttonAttendance = this.buttonIsNotSeleted
+          this.buttonAnalytics = this.buttonIsNotSeleted
+        },
+        subButtonReset(){
+          $("#attendance").hide();
+          $("#student").hide();
+        }, 
 
       },mounted() {
+
+        this.buttonReset()
         window.addEventListener("storage", (event) => {
           if (event.storageArea != localStorage) return;
           if (event.key === "refreshToken") {

@@ -7,6 +7,7 @@ import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import AccountPage from "@/pages/AccountPage.vue";
 import TestPage from "@/pages/TestPage.vue";
+import TestPage2 from "@/pages/TestPage2.vue";
 import LogoutPage from "@/pages/LogoutPage.vue";
 import Add_Del_Product from "@/pages/Add_Del_Product.vue";
 import Student_Table from "@/pages/tables/Student_Table.vue";
@@ -78,8 +79,12 @@ const routes = [
         name: 'Test Page',
         path: '/testpage',
         component: TestPage,
-    }
-    ,  
+    },
+    {
+        name: 'Test2 Page',
+        path: '/testpage2',
+        component: TestPage2,
+    },   
     {
         name: 'Table',
         path: '/table1',

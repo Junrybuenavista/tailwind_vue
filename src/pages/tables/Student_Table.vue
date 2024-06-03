@@ -80,6 +80,7 @@
                   })
                   .catch((error)=>{             
                     renewToken.checkToken(error).then(()=>{
+                      this.$refs.ChildRef.getData();
                       this.getCoureIdData()
                     })   
                   })
