@@ -1,12 +1,14 @@
 <template>
 
-  <div class="flex flex-col">
+
+
+  <div class="flex flex-col" >
   <div class="-m-1.5 overflow-x-auto">
     <div class="p-1.5 min-w-full inline-block align-middle">
       <div class="border rounded-lg divide-y divide-gray-200">
         <div class="py-3 px-4  h-20 grid grid-cols-2 gap-4 content-center">
           
-          <form class="relative max-w-xs flex items-center ">
+              <form class="relative max-w-xs flex items-center ">
                     <label for="voice-search" class="sr-only">Search</label>
                     <div class="relative w-full">
                       <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -17,9 +19,11 @@
                       <input v-model="keyword" type="text" id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." required>
                     </div>
                 </form>
-    
-        </div>
-        <div class="overflow-hidden">
+            </div>
+
+
+  
+        
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr >
@@ -48,10 +52,10 @@
                   <button @click="deleteItem"  :value=JSON.stringify(item) type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
                 </td>
               </tr>
-
-
             </tbody>
+         
           </table>
+      
         </div>
         <div class="py-1 px-4">
           <nav class="flex items-center space-x-1">
@@ -69,7 +73,7 @@
       </div>
     </div>
   </div>
-</div>
+
 
 <div class="form">                                                                                                                                                        
       <LoadingModal ref="LoadingModalRef" />                                                                      
@@ -113,7 +117,7 @@ export default {
                   keyword: '',
                   currentSort:'name',
                   currentSortDir:'asc',
-                  pageSize:7,
+                  pageSize:9,
                   currentPage:1,
                   items: [],                
                 }
@@ -136,7 +140,9 @@ export default {
                       this.$refs.LoadingModalRef.close();                          
                   })
                   .catch((error)=>{             
-                    this.handleError(error)     
+                    renewToken.checkToken(error,this.$router).then(()=>{
+                      this.getData(this.properties.getData)
+                    })     
                   })
               },
               async delete(id){
@@ -147,26 +153,10 @@ export default {
                       this.getData()                          
                   })
                   .catch((error)=>{             
-                    this.handleError(error)     
+                    renewToken.checkToken(error).then(()=>{
+                      this.delete(id)
+                    })     
                   })
-              },
-              handleError(error){
-                this.items= []
-                console.log(error.response.data.error.message+' in catch')
-                  if(error.response.data.error.message==='jwt expired'){
-                        this.$refs.LoadingModalRef.close();
-                        console.log('renewing token')
-
-                        renewToken.renewToken(this.$router).then(()=>{
-                            console.log('redirecting')
-                            this.getData(this.properties.getData) 
-                            console.log('redirecting3333')
-                        }).catch((error)=>{
-                            console.log(error)                         
-                        })          
-                    }else if(error.response.data.error.message==='jwt malformed'){
-                        this.$router.push('/login')
-                    }else console.log(error)   
               },
               sort:function(s) {
                   if(s === this.currentSort) {

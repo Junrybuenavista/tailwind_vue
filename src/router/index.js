@@ -1,5 +1,6 @@
 import { createRouter,  createWebHistory } from "vue-router";
 import dashboard from '../pages/master/Master_Dashboard'
+
 import HomePage from "@/pages/HomePage.vue";
 import ProfilePage from "@/pages/ProfilePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
@@ -11,6 +12,8 @@ import Add_Del_Product from "@/pages/Add_Del_Product.vue";
 import Student_Table from "@/pages/tables/Student_Table.vue";
 import TableModel_1 from "@/pages/tables/TableModel_1.vue";
 import CourseGrade_Table from "@/pages/tables/CourseGrade_Table.vue";
+import CheckAttendance from "@/pages/CheckAttendance.vue";
+
 
 const routes = [
     {
@@ -40,7 +43,7 @@ const routes = [
                 component: Add_Del_Product
             },
             {
-                name: 'Category table',
+                name: 'Student table',
                 path: '/student/list',
                 component: Student_Table
             },
@@ -48,9 +51,12 @@ const routes = [
                 name: 'CourseGrade table',
                 path: '/coursegrade/list',
                 component: CourseGrade_Table
-            }
-            
-
+            },
+            {
+                name: 'Check Attendance',
+                path: '/check_attendance',
+                component: CheckAttendance
+            },
         ]
     },
     {

@@ -5,9 +5,9 @@ import axios from "axios";
 
 export default {
 
-    async renewToken(router){
+    async renewToken(){
 
-        const refreshToken ={ 
+        const refreshToken = { 
             
                 refreshToken: localStorage.getItem('refreshToken')
         }   
@@ -26,8 +26,19 @@ export default {
             
         }) 
         .catch((error) => {
-            router.push('/login')
+
             console.log(error)                           
         })     
-    }
+    },
+    async checkToken(error){
+          if(error.response.data.error.message==='jwt expired'){
+                console.log('renewing token')
+                    this.renewToken().then(()=>{
+                }).catch((error)=>{
+                    console.log(error)                         
+                })          
+            }else if(error.response.data.error.message==='jwt malformed'){
+                console.log(error.response.data.error.message)
+            }else console.log(error)   
+      },
 }       
