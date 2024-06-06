@@ -23,12 +23,13 @@
             <select required  id="courseGrade" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Gender">
               <option selected value="" disabled>List by</option>
               <option value="">All</option>
-              <option v-for="item in this.courseGradeItems" :key="item._id" :value="item._id">{{item.name}}</option>
+              <option v-for="item in this.courseGradeItems" :key="item._id" :value="item._id">{{item.className}}</option>
             </select>
           </div>
         </div> 
     
-
+                                                                                                                                                      
+    <LoadingModal ref="LoadingModalRef" />                                                                      
     <child :properties="this.properties" ref="ChildRef"/>
     <AddStudentModal ref="AddStudentModalRef" />
   </template>
@@ -39,11 +40,14 @@
   import $ from 'jquery'
   import axios from "axios";
   import renewToken from '../../axios/renewToken'
+  import LoadingModal from '../modals/LoadingModal.vue';
+  
 
     export default {
           components:{
             child,
-            AddStudentModal
+            AddStudentModal,
+            LoadingModal,
           },
           data() {
             return {
@@ -57,32 +61,40 @@
               courseGradeItems: [],    
             }
           },
-          mounted(){
+         async mounted(){
+            
+             this.$refs.LoadingModalRef.show()
              const self = this 
-             this.$refs.ChildRef.getData();
-             this.getCoureIdData()
-             $('#courseGrade').change(function() {
+             await this.$refs.ChildRef.getData(); 
+             await this.getCoureIdData()
+             await this.$refs.AddStudentModalRef.classInit() 
+
+             $('#courseGrade').change(async function() {
                 const val = $("#courseGrade option:selected").val();
                   self.courseGradeVal = val
-                  self.$refs.ChildRef.getData(self.courseGradeVal);
-                console.log(val)
+                  self.$refs.LoadingModalRef.show()
+                  await self.$refs.ChildRef.getData(self.courseGradeVal);
+                  self.$refs.LoadingModalRef.close()
+                  console.log(val)
              });
+
+             console.log('done')
+             this.$refs.LoadingModalRef.close()
           },
           methods:{
              async getCoureIdData(){
                   const userIds = {        
                     "userId": localStorage.getItem('userId')
                   }  
-                  await axios.post('course_and_grade/list', userIds)
+                  await axios.post('class_schedule/list', userIds)
                   .then(res => {
                       console.log(res.data);
-                      this.courseGradeItems = res.data;                        
+                      this.courseGradeItems = res.data;                    
                   })
-                  .catch((error)=>{             
-                    renewToken.checkToken(error).then(()=>{
+                  .catch(async(error)=>{                                
+                      renewToken.checkToken(error)
                       this.$refs.ChildRef.getData();
-                      this.getCoureIdData()
-                    })   
+                      this.getCoureIdData()                  
                   })
               },
             openAddModal() {

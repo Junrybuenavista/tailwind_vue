@@ -12,7 +12,7 @@ import LogoutPage from "@/pages/LogoutPage.vue";
 import Add_Del_Product from "@/pages/Add_Del_Product.vue";
 import Student_Table from "@/pages/tables/Student_Table.vue";
 import TableModel_1 from "@/pages/tables/TableModel_1.vue";
-import CourseGrade_Table from "@/pages/tables/CourseGrade_Table.vue";
+import ClassSched from "@/pages/tables/ClassSchedule.vue";
 import CheckAttendance from "@/pages/CheckAttendance.vue";
 import Calendar from "@/calendar/CalendarView.vue";
 import Components_sample from "@/pages/components_sample.vue";
@@ -53,7 +53,7 @@ const routes = [
             {
                 name: 'CourseGrade table',
                 path: '/coursegrade/list',
-                component: CourseGrade_Table
+                component: ClassSched
             },
             {
                 name: 'Check Attendance',

@@ -16,36 +16,41 @@
           
 
     <child :properties="this.properties" ref="ChildRef"/>
-    <AddCourseGradeModal ref="AddCourseGradeModalRef" />
+    <AddClass ref="AddClassRef" />
+    <LoadingModal ref="LoadingModalRef" /> 
   </template>
   
   <script>
-  import child from '../tables/TableModel_1'
-  import AddCourseGradeModal from '../modals/AddCourseGrade.vue';
+  import child from '../tables/TableModel_2'
+  import AddClass from '../modals/AddClass.vue';
+  import LoadingModal from '../modals/LoadingModal.vue';
 
     export default {
           components:{
             child,
-            AddCourseGradeModal
+            AddClass,
+            LoadingModal
           },
           data() {
             return {
               properties:{
-                headers: ["Id","Name", "Description"],
+                headers: ["Id","Class Name", "Schedule Day","From","To", "Description"],
                 indexSearch: 1,
-                getData: '/course_and_grade/list',
-                deleteItem: '/course_and_grade/delete/'
+                getData: '/class_schedule/list',
+                deleteItem: '/class_schedule/delete/'
               },    
             }
           },
-          mounted(){
-             this.$refs.ChildRef.getData();
+          async mounted(){
+            this.$refs.LoadingModalRef.show()
+            await this.$refs.ChildRef.getData();
+            this.$refs.LoadingModalRef.close()
           },
           methods:{
             openAddModal() {
               console.log('hh')
-                this.$refs.AddCourseGradeModalRef.clear();
-                this.$refs.AddCourseGradeModalRef.show();
+                this.$refs.AddClassRef.clear();
+                this.$refs.AddClassRef.show();
               }  
           }     
     }

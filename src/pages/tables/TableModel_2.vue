@@ -131,7 +131,7 @@ export default {
 
                 const payload = {   
                   "userId":localStorage.getItem('userId'),     
-                  "classId":filter
+                  "coursegradeId":filter
                 }   
                 
                   await axios.post(this.properties.getData, payload)

@@ -15,7 +15,7 @@
          <p  class="text-[13px] text-red mt-2">{{responseText}}</p>
       </div>
 
-      <CourseGrade :endpoint = "this.dropdownendpoint" defaultSelection = "Choose course/grade" ref="CourseGradeRef" />
+      <ClassName indexSearch="1" :endpoint = "this.dropdownendpoint" defaultSelection = "Choose class" ref="ClassNameRef" />
 
       <input v-model="form.first_name" type="text" id="category" aria-describedby="helper-text-explanation" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fist Name">
 
@@ -55,12 +55,13 @@
   <script>
   import axios from "axios";
   import $ from 'jquery'
-  import CourseGrade from '../../component/dropdownMenu.vue';
+  import ClassName from '../../component/dropdownMenu.vue';
+  import renewToken from '../../axios/renewToken'
 
       export default {
 
         components:{
-          CourseGrade
+          ClassName
         },
         data(){
                 return {
@@ -75,31 +76,34 @@
                       age: '',
                       gender: '',
                       address: '',
-                      coursegradeId: ''
+                      classId: ''
                       
                   },
-                  courseGradeItems: [],
-                  dropdownendpoint: 'course_and_grade/list'
+                  ClassNameItems: [],
+                  dropdownendpoint: 'class_schedule/list'
                 }
         
             },
             mounted(){
-               this.$refs.CourseGradeRef.getData()
+               
             },
             methods:{
+                async classInit(){
+                  await this.$refs.ClassNameRef.getData()
+                },
                 show(){ 
                   this.showModal = !this.showModal
                   this.resIsShow = !this.resIsShow
                 },
                 test(){  
                   console.log('gender'+$('#gender').find(":selected").val()+'end1')
-                  console.log('course'+this.$refs.CourseGradeRef.getId())
+                  console.log('course'+this.$refs.ClassNameRef.getId())
                 },
                 async addStudent(){
                     this.loading = true
                     this.form.userId = localStorage.getItem('userId')
                     this.form.gender = $('#gender').find(":selected").val()
-                    this.form.coursegradeId = this.$refs.CourseGradeRef.getId()
+                    this.form.classId = this.$refs.ClassNameRef.getId()
               
                     axios.post('/student', this.form)
                     .then((res) => {
@@ -115,9 +119,17 @@
                             $("#response").fadeIn();
                             this.loading =  false                
                           })
-                          .catch((error) => {
+                          .catch(async (error) => {
                               console.log(error.response.data.error.message)
                               this.responseText = error.response.data.error.message
+                              await renewToken.checkToken(error.response.data.error.message).then((result)=>{
+                                if(result){
+                                  this.addStudent()
+                                }        
+                              }).catch((error)=>{
+                                console.log(error)
+                              })
+                             
                               $("#response").fadeIn();
                                                
                     })

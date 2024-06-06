@@ -30,7 +30,7 @@
                   </button>
                   <div id='student' v-show="false" class="pl-4" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                       <router-link  to="/coursegrade/list" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
-                          Course/Grade
+                          Class Schedules
                        </router-link>
                       <router-link to="/student/list" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
                          Student List

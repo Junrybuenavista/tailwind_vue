@@ -237,7 +237,7 @@ export default {
         .catch((error) => {
                 console.log(error.response.data.error.message)
                 if(error.response.data.error.message==='jwt expired'||error.response.data.error.message==='jwt malformed'){                                
-                    renewToken.renewToken(self.$router)
+                    renewToken.checkToken(self.$router)
                     console.log('redirecting')
                     self.changeVal(localStorage.getItem('name'))
                 }else console.log(error)                                                                                                                                
