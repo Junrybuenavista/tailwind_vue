@@ -1,21 +1,19 @@
 
 
 import axios from "axios";
-//import { resolve,reject } from "core-js/fn/promise";
+
 
 export default {
 
-    async checkToken(message){
+    async checkToken(message,router){
       
       return new Promise((resolve, reject) => {   
         if(message ==='jwt expired'){
-          console.log('renewing token')
+              console.log('Renewing token')
               const refreshToken = { 
                   refreshToken: localStorage.getItem('refreshToken')
-              }   
-              
+              }         
               console.log('Renewing token')
-              console.log(refreshToken)
               axios.post('/auth/refresh-token/',refreshToken)
               .then(res => {
                   
@@ -27,7 +25,8 @@ export default {
                   console.log('Token refreshed') 
                   resolve(true);    
               }) 
-              .catch((error) => {        
+              .catch((error) => {
+                  router.push('/login')        
                   reject('Promise is rejected'+error);                        
               })  
         }

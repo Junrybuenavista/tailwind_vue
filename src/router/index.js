@@ -11,7 +11,7 @@ import TestPage2 from "@/pages/TestPage2.vue";
 import LogoutPage from "@/pages/LogoutPage.vue";
 import Add_Del_Product from "@/pages/Add_Del_Product.vue";
 import Student_Table from "@/pages/tables/Student_Table.vue";
-import TableModel_1 from "@/pages/tables/TableModel_1.vue";
+import TableModel_1 from "@/pages/tables/TableModel_2.vue";
 import ClassSched from "@/pages/tables/ClassSchedule.vue";
 import CheckAttendance from "@/pages/CheckAttendance.vue";
 import Calendar from "@/calendar/CalendarView.vue";
